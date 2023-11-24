@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>First page</title>
+    <link rel="stylesheet" href="histogram.css" />
+    <script type="text/javascript" src="calculate.js" defer></script>
+  </head>
+
+
+  <body onload="init()" id="main-body">
+   
+    <div id="main-page">
+      <div id="header">
+        <h1>Histrogram Genrator</h1>
+        <input id="fileInput" type="file" name="file" />
+        <pre id="fileContent"></pre>
+      </div>
+      <div id="main-content">
+        <div id="first-section">
+          <h3 id = "header2">Lower bounds</h3>
+          <table id = "m-table">
+            <tr>
+              <th>Max</th> 
+              <td ><input class = "userinput" type = "number" step="0.01"  value = 100.00 name = "i1" ></td>
+            </tr>
+            <tr>
+              <th>A+</th> 
+              <td><input class = "userinput" type = "number" step="0.01" name = 95.00 value = 95.00 name = "i2"></td>
+            </tr>
+            <tr>
+              <th>A</th> 
+              <td><input class = "userinput" type = "number" step="0.01" value = 90.00 name = "i3"></td>
+            </tr>
+            <tr>
+              <th>A-</th> 
+              <td><input class = "userinput" type = "number" step="0.01" value = 85.00 name = "i4" ></td>
+            </tr>
+            <tr>
+              <th>B+</th> 
+              <td><input class = "userinput" type =  "number" step="0.01" value = 80.00 name = "i5"></td>
+            </tr>
+            <tr>
+              <th>B</th> 
+              <td><input class = "userinput" type =  "number" step="0.01" value = 75.00  name = "i6"></td>
+            </tr>
+            <tr>
+              <th>B-</th> 
+              <td><input class = "userinput" type =  "number" step="0.01" value = 70.00 name = "i7"></td>
+            </tr>
+            <tr>
+              <th>C+</th> 
+              <td ><input  class = "userinput" type = "number" step="0.01" value = 65.00 name = "i8"></td>
+            </tr>
+            <tr>
+              <th>C</th> 
+              <td><input class = "userinput" type = "number" step="0.01" value = 60.00 name = "i9"></td>
+            </tr>
+            <tr>
+              <th>C-</th> 
+              <td><input class = "userinput" type = "number" step="0.01" value = 55.00 name = "i10"></td>
+            </tr>
+            <tr>
+              <th>D</th> 
+              <td><input class = "userinput" type = "number" step="0.01" value = 50.00 name = "i11"></td>
+            </tr>
+            <tr>
+              <th>F</th> 
+              <td><input class = "userinput" type = "number" step="0.01" value = 0.00 name = "i12"></td>
+            </tr>
+
+
+          </table>
+
+        </div>
+        <div id="second-section">
+
+          <div id="histogram">
+            <h3 id = "header2">Histogram</h3>
+            <table id = "histogram-table" class = "nonvisit">
+              <tr>
+                <th>A+</th>
+    
+              </tr>
+              <tr>
+                <th>A</th>
+             
+              </tr>
+              <tr>
+                <th>A-</th>
+      
+              </tr>
+              <tr>
+                <th>B+</th>
+      
+              </tr>
+              <tr>
+                <th>B</th>
+              
+              </tr>
+              <tr>
+                <th>B-</th>
+           
+              </tr>
+              <tr>
+                <th>C+</th>
+          
+              </tr>
+              <tr>
+                <th>C</th>
+               
+              </tr>
+              <tr>
+                <th>C-</th>    
+              </tr>
+              <tr>
+                <th>D</th>          
+              </tr>
+              <tr>
+                <th>F</th>
+              </tr>
+            </table>
+          </div>
+
+          <div id = "stats">
+            <h3 id = "header2">Stats</h3>
+            <table id = "stat-table">
+              <tr>
+                <th>Highest</th>
+                <td id="highest"></td>
+              </tr>
+              <tr>
+                <th>Lowest</th>
+                <td id = "lowest"></td>
+              </tr>
+              <tr>
+                <th>Mean</th>
+                <td id = "mean"></td>
+              </tr>
+              <tr>
+                <th>Median</th>
+                <td id = "median"></td>
+              </tr>
+            </table>
+          
+          </div>
+
+        </div>
+       
+    
+      </div>
+    </div>
+  </body>
+
+
+</html>
