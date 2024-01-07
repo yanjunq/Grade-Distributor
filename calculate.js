@@ -16,7 +16,6 @@ let Histrogramlist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 // var alertime = 0;
 var loadfile = false;
 
-  
 function handleFileLoad(event) {
   
  
@@ -25,9 +24,7 @@ function handleFileLoad(event) {
   }
     
   console.log(event);
-  
-  // // console.log(event.target.result);
-  // document.getElementById('fileContent').textContent = event.target.result;
+
   for (let i = 0; i < Histrogramlist.length; i++){
     Histrogramlist[i] = 0;
   }
@@ -49,7 +46,6 @@ function handleFileLoad(event) {
 
   displayHistogram(Histrogramlist);
 
- 
 }
 
     // handle the input 
@@ -57,19 +53,19 @@ function handleFileLoad(event) {
   
     for (var i = 0; i < inputlist.length; i++) {
     
-        //handle invalid input
+      //handle invalid input
       var node = inputlist[i];
-      node.addEventListener('blur', checking(node, initialValueList[i], i));//////////////
+      node.addEventListener('blur', checking(node, initialValueList[i], i));
     
     }
     
     function checking(node, initial, index) {
       return function () {
-        checkvalid(node, initial, index);/////////
+        checkvalid(node, initial, index);
       };
     }
 
-//handle invalid input////////////
+//handle invalid input
 function checkvalid(event, initial, index) {
 
   var temp = parseFloat(event.value);
@@ -90,15 +86,9 @@ function checkvalid(event, initial, index) {
       check2 = (temp <= initialValueList[j]) ? false : true;
     }
 
-    // if ((index == 0 || temp > 100) ||(index == 11 || temp < 0) ){
-    //   check1 == false;
-    //   check2 = false;
-
-    // }
 
     if (check1 == false || check2 == false) {
       event.value = initialValueList[index].toFixed(2);
-      // alertime += 1;
       alert("Please make sure the range won't overlap");
     } else {
       initialValueList[index] = temp;
@@ -144,17 +134,9 @@ function getStat(filelist) {
 
   //sorting 
   let sortList = filelist;
-  for (let i = 0; i < (sortList.length)-1; i++){
-    let temp = i;
-    for (let j = i + 1; j < sortList.length; j++){
-      if (+sortList[j][1] < +sortList[temp][1]) {
-        temp = j;
-      }
-    }
-
-    [sortList[temp], sortList[i]] = [sortList[i], sortList[temp]];
-    
-  }
+  sortList.sort((a, b) => {
+    +a[1] - +b[1];
+  })
 
   //restore into a list 
   result.push([sortList[sortList.length-1]]);
@@ -176,8 +158,7 @@ if (Number(sortList.length) % 2 != 0) {
 
 }
 
-//initialValueList = [100.00,95.00,90.00,85.00,80.00,75.00,70.00,65.00,60.00,55.00,50.00,0.00]
-function getHistrogram(filelist, initialList) {
+function getHistrogram(filelist) {
 
   for (let i = 0; i < filelist.length; i++) {
     let temp = +filelist[i][1];
@@ -185,109 +166,61 @@ function getHistrogram(filelist, initialList) {
     if (temp > initialValueList[0]) {
       return;
     }
-
-    if (temp >= initialValueList[1]) {
-    // if (temp <= initialValueList[0] && temp >= initialValueList[1]) {
-      Histrogramlist[0] += 1;
- 
-    } else if (temp >= initialValueList[2]) {
-      Histrogramlist[1] += 1;
-    } else if (temp >= initialValueList[3]) {
-      Histrogramlist[2] += 1;
-    } else if (temp >= initialValueList[4]) {
-      Histrogramlist[3] += 1;
-      
-    } else if (temp >= initialValueList[5]) {
-      Histrogramlist[4] += 1;
-      
-    } else if (temp >= initialValueList[6]) {
-      Histrogramlist[5] += 1;
-      
-    } else if (temp >= initialValueList[7]) {
-      Histrogramlist[6] += 1;
-
-    } else if (temp >= initialValueList[8]) {
-      Histrogramlist[7] += 1;
-      
-    } else if (temp >= initialValueList[9]) {
-      Histrogramlist[8] += 1;
-     
-    } else if (temp >= initialValueList[10]) {
-      Histrogramlist[9] += 1;
-      
-    } else if (temp >= initialValueList[11]) {
-      Histrogramlist[10] += 1;
+    
+    for (let j = 0; j <= 10; j++) {
+      if (temp >= initialValueList[j + 1]) {
+        Histrogramlist[j] += 1;
+        j = 11;
+      }
     }
   }
 }
 
-function displayHistogram(alist) {
+  function displayHistogram() {
   
-  var histogramTableData = document.querySelectorAll("#histogram-table tr");
-  var check = document.querySelector("#histogram-table").className;
+    var histogramTableData = document.querySelectorAll("#histogram-table tr");
+    var tableClass = document.querySelector("#histogram-table").className;
 
-  
-  for (let i = 0; i < Histrogramlist.length; i++){
-
-    if (check == "visit") {
-
-      var temp = document.querySelectorAll("#histogram-table tr")[i];
-      var deletenode = temp.lastChild;
-      console.log("check");
-      deletenode.remove();
-      
-    } else {
-
-          var exchange = document.querySelector("#histogram-table");
-          exchange.classList.remove("nonvisit");
-          exchange.classList.add("visit");
-      
-    }
+    for (let i = 0; i < Histrogramlist.length; i++) {
     
-    var node = "";
-    for (let j = 0; j < Histrogramlist[i]; j++){
-      // node += "1";
-      node += "&#10003 ";
-   
-
-    }
-    console.log(Histrogramlist[i]);
-    
-
-      var temp2 = document.createElement('td');
-      temp2.innerHTML = node;
-   
-      temp2.classList.add("histogram-data");
-      if (i == 0 || i == 1 || i == 2) {
-        temp2.style.color = "blue"; 
-      } else if (i == 3 || i == 4 || i == 5) {
-        temp2.style.color = "orange"; 
-      } else if(i == 6 || i == 7 || i == 8){
-        temp2.style.color = "purple"; 
+      if (tableClass == "visit") {
+        var row = document.querySelectorAll("#histogram-table tr")[i];
+        var lastChild = row.lastChild;
+        lastChild.remove();
       } else {
-        temp2.style.color = "red"; 
+   
+        var table = document.querySelector("#histogram-table");
+        table.classList.remove("nonvisit");
+        table.classList.add("visit");
       }
-     
-      
-      histogramTableData[i].appendChild(temp2);
-      // document.querySelector("#histogram-table td").style..
 
-    
+      var dataPoint = "";
+      for (let j = 0; j < Histrogramlist[i]; j++) {
+        dataPoint += "&#10003 ";
+      }
 
+      var cell = document.createElement('td');
+      cell.innerHTML = dataPoint;
+      cell.classList.add("histogram-data");
+
+      if (i < 3) {
+        cell.style.color = "blue";
+      } else if (i < 6) {
+        cell.style.color = "orange";
+      } else if (i < 9) {
+        cell.style.color = "purple";
+      } else {
+        cell.style.color = "red";
+      }
+      histogramTableData[i].appendChild(cell);
+    }
   }
 
-  for (let i = 0; i < Histrogramlist.length; i++){
+  for (let i = 0; i < Histrogramlist.length; i++) {
     Histrogramlist[i] = 0;
   }
-  
-  // if (check != "visit") {
-  //   var exchange = document.querySelector("#histogram-table");
-  //   exchange.classList.remove("nonvisit");
-  //   exchange.classList.add("visit");
-    
-  // }
 
-}
+
 
 
 
