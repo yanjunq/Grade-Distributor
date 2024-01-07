@@ -1,2 +1,2 @@
-# Grade-Distributor
+# Histogram-Generator
 
